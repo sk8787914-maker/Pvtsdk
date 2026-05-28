@@ -1,0 +1,128 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="#000000">
+
+    <!-- LOTTIE ANIMATION BACKGROUND -->
+    <com.airbnb.lottie.LottieAnimationView
+        android:id="@+id/backgroundAnimation"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:scaleType="centerCrop"
+        app:lottie_rawRes="@raw/zoro"
+        app:lottie_autoPlay="true"
+        app:lottie_loop="true"
+        app:lottie_speed="0.8" />
+
+    <androidx.cardview.widget.CardView
+        android:id="@+id/loginCardView"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_centerInParent="true"
+        android:layout_margin="30dp"
+        app:cardBackgroundColor="#FFFFFF"
+        app:cardCornerRadius="30dp"
+        app:cardElevation="15dp">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:gravity="center"
+            android:orientation="vertical"
+            android:padding="16dp">
+
+            <androidx.cardview.widget.CardView
+                android:layout_width="85dp"
+                android:layout_height="85dp"
+                app:cardCornerRadius="45dp"
+                app:cardElevation="2dp"
+                android:layout_marginBottom="15dp">
+                
+                <ImageView
+                    android:id="@+id/logoImage"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:scaleType="centerCrop"
+                    android:src="@drawable/ic_launcher" />   <!-- ✅ CLOSED -->
+
+            </androidx.cardview.widget.CardView>
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="LOGIN"
+                android:textColor="#000000"
+                android:textSize="22sp"
+                android:textStyle="bold" />
+
+            <RelativeLayout
+                android:layout_width="match_parent"
+                android:layout_height="55dp"
+                android:layout_marginTop="25dp"
+                android:background="#F2F2F2"
+                android:paddingLeft="15dp"
+                android:paddingRight="15dp">
+                
+                <EditText
+                    android:id="@+id/userkey"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:layout_toStartOf="@id/paste"
+                    android:background="@android:color/transparent"
+                    android:hint="Enter Your Key"
+                    android:inputType="text"
+                    android:textColor="#000000"
+                    android:textColorHint="#8E8E8E"
+                    android:textSize="14sp" />
+                
+                <ImageView
+                    android:id="@+id/paste"
+                    android:layout_width="25dp"
+                    android:layout_height="25dp"
+                    android:layout_alignParentEnd="true"
+                    android:layout_centerVertical="true"
+                    android:alpha="0.4"
+                    android:src="@drawable/baseline_content_paste_24" />
+            </RelativeLayout>
+
+            <Button
+                android:id="@+id/login"
+                android:layout_width="match_parent"
+                android:layout_height="58dp"
+                android:layout_marginTop="20dp"
+                android:text="ACCESS SYSTEM"
+                android:textColor="#FFFFFF"
+                android:textStyle="bold"
+                android:backgroundTint="#000000"
+                app:cornerRadius="30dp" />
+
+            <TextView
+                android:id="@+id/GetKey"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="18dp"
+                android:text="Get Key"
+                android:textColor="#3498DB"
+                android:textSize="14sp"
+                android:textStyle="bold" />
+
+        </LinearLayout>
+        
+    </androidx.cardview.widget.CardView>
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentBottom="true"
+        android:layout_centerHorizontal="true"
+        android:layout_marginBottom="35dp"
+        android:alpha="0.7"
+        android:gravity="center"
+        android:text="Copyright © 2026 - JANGAM"
+        android:textColor="#000000"
+        android:textSize="11sp"
+        android:textStyle="bold" />
+
+</RelativeLayout>

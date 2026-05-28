@@ -1,0 +1,111 @@
+plugins {
+    id 'com.android.application'
+    id 'org.lsposed.lsparanoid'
+}
+
+apply from: '../signing.gradle'
+
+android {
+    
+    compileSdkVersion rootProject.ext.compileSdkVersion
+    buildToolsVersion rootProject.ext.buildToolsVersion
+    namespace rootProject.ext.LoaderPkg
+    
+    lint {
+        baseline = file("lint-baseline.xml")
+    }
+    
+    defaultConfig {
+        applicationId rootProject.ext.LoaderPkg
+        minSdkVersion rootProject.ext.minSdkVersion
+        targetSdkVersion rootProject.ext.targetSdkVersion
+        versionCode rootProject.ext.versionCode
+        versionName rootProject.ext.versionName
+        vectorDrawables.useSupportLibrary = true
+        consumerProguardFiles "proguard-rules.pro"
+        testInstrumentationRunner "androidx.test.runner.AndroidJUnitRunner"
+        
+        // ✅ SIRF ARM64 - Size 30% kam
+        ndk {
+            abiFilters 'arm64-v8a'
+        }
+        
+        // ✅ SIRF English + Hindi - Size 10% kam
+        resConfigs "en", "hi"
+    }
+    
+    buildTypes {
+        debug {
+            minifyEnabled false
+            debuggable false
+            jniDebuggable false
+            signingConfig signingConfigs.debug
+            proguardFiles getDefaultProguardFile('proguard-android-optimize.txt'), 'proguard-rules.pro'
+        }
+
+        release {
+            // ✅ RELEASE BUILD OPTIMIZATIONS
+            debuggable false        // ← TRUE → FALSE karo
+            jniDebuggable false     // ← TRUE → FALSE karo
+            minifyEnabled true      // ✅ Code shrink
+            shrinkResources true    // ✅ Resource shrink (YEH ADD KARO)
+            signingConfig signingConfigs.release
+            proguardFiles getDefaultProguardFile('proguard-android-optimize.txt'), 'proguard-rules.pro'
+            
+            // ✅ APK को नहीं, AAB बनाओ (Play Store ke liye)
+            // bundling को optimize करो
+        }
+    }
+
+    compileOptions {
+        sourceCompatibility JavaVersion.VERSION_1_8
+        targetCompatibility JavaVersion.VERSION_1_8
+    }
+
+    ndkVersion rootProject.ext.ndkVersion
+    
+    externalNativeBuild {
+        ndkBuild {
+            path "src/main/jni/Android.mk"
+        }
+    }
+    
+    buildFeatures {
+        viewBinding true
+    }
+    
+    // ✅ BUNDLE CONFIG - Play Store ke liye AAB optimize
+    bundle {
+        language {
+            enableSplit = true   // Sirf user ki language
+        }
+        density {
+            enableSplit = true   // Sirf user ki screen density
+        }
+        abi {
+            enableSplit = true   // Sirf user ka processor
+        }
+    }
+}
+
+dependencies {
+    implementation fileTree(dir: "libs", include: ["*.jar", "*.aar"])
+    
+    // Existing Dependencies
+    implementation 'com.github.nukc:StateView:2.1.1'
+    implementation 'androidx.appcompat:appcompat:1.2.0'
+    implementation 'com.google.android.material:material:1.9.0'
+    implementation 'com.github.tiann:FreeReflection:3.2.2'
+    implementation "com.github.CodingGay.BlackReflection:core:1.1.4"
+    annotationProcessor "com.github.CodingGay.BlackReflection:compiler:1.1.4"
+    implementation 'org.jdeferred:jdeferred-android-aar:1.2.6'
+    implementation 'io.github.molihuan:pathselector:1.1.16'
+    implementation 'net.lingala.zip4j:zip4j:2.11.5'
+    implementation 'com.squareup.okhttp3:okhttp:4.12.0'
+    implementation 'com.squareup.okio:okio:3.9.0'
+    implementation 'androidx.cardview:cardview:1.0.0'
+    implementation 'com.github.bumptech.glide:glide:4.15.1'
+    
+    // LOTTIE ANIMATION - Background ke liye
+    implementation 'com.airbnb.android:lottie:6.1.0'
+}
